@@ -1,4 +1,6 @@
 
+using System.Globalization;
+
 namespace Jobber.Hangfire.Web.Jobs;
 
 
@@ -13,15 +15,30 @@ public class TestService : ITestService
     public bool RunTests(CancellationToken cancellationToken)
     {
         var id = Guid.NewGuid();
-        _logger.LogInformation($"{DateTime.Now} RunTests is started. Id: {id}");
 
-        // ...
-        Thread.Sleep(20000);
-        ThrowRandomly();
-        // ...
+        try
+        {
+            _logger.LogInformation($"{DateTime.Now} RunTests is started. Id: {id}");
 
-        _logger.LogInformation($"{DateTime.Now} RunTests is finished. Id: {id}");
-        return true;
+            cancellationToken.ThrowIfCancellationRequested();
+            // ...
+            Thread.Sleep(20000);
+            ThrowRandomly();
+            // ...
+
+            _logger.LogInformation($"{DateTime.Now} RunTests is finished. Id: {id}");
+            return true;  
+        }
+        catch (OperationCanceledException exception)
+        {
+            _logger.LogError($"{DateTime.Now} RunTests is failed. Exception: {exception.Message} Id: {id}");
+        }
+        catch(Exception exception)
+        {
+            _logger.LogError($"{DateTime.Now} RunTests is failed. Exception: {exception.Message} Id: {id}");
+        }
+        
+        return false;
     }
 
     private void ThrowRandomly() 
@@ -31,7 +48,6 @@ public class TestService : ITestService
 
         if (number == 2)
         {
-            _logger.LogError($"{DateTime.Now} RunTests is failed!");
             throw new Exception("Unexpected and unhandled exception is throwed!");
         }
     }
