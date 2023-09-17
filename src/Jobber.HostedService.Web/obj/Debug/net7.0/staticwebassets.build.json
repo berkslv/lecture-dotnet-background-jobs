@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "FrHbphUO7d4D5Jf4riNDgt0XW7sn6V8YCWlVAulT27k=",
+  "Source": "Jobber.HostedService.Web",
+  "BasePath": "_content/Jobber.HostedService.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

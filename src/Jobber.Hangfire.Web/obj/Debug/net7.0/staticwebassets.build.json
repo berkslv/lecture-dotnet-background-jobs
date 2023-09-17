@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "uVW0gJzdUP235eo0ZJ0FN+JnzNtxU2iDdZUTplf9Rz8=",
+  "Source": "Jobber.Hangfire.Web",
+  "BasePath": "_content/Jobber.Hangfire.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

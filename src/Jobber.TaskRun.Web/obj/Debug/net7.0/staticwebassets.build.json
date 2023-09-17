@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "HeZEsLu8wFJAf6a1IEN8tJGd6u8uuM8PGcxlQCZ92nk=",
+  "Source": "Jobber.TaskRun.Web",
+  "BasePath": "_content/Jobber.TaskRun.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

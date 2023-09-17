@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/Jobber.TaskRun.Web.props" />
+</Project>

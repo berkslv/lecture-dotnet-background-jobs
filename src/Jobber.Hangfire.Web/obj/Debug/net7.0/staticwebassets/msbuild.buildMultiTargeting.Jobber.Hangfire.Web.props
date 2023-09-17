@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Jobber.Hangfire.Web.props" />
+</Project>
