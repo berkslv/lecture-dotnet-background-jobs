@@ -14,13 +14,15 @@ public class TestService : BackgroundService, ITestService
 
     public bool RunTests(TestType testType)
     {
-        _logger.LogInformation($"{DateTime.Now} RunTests is started");
+        var type = Enum.GetName(typeof(TestType), testType);
+
+        _logger.LogInformation($"{DateTime.Now} {type} RunTests is started");
 
         // ...
         Thread.Sleep(5000);
         // ...
 
-        _logger.LogInformation($"{DateTime.Now} RunTests is finished");
+        _logger.LogInformation($"{DateTime.Now} {type} RunTests is finished");
         
         return true;
     }
