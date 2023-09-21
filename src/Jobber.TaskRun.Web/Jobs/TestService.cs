@@ -14,7 +14,7 @@ public class TestService : ITestService
         _logger.LogInformation($"{DateTime.Now} RunTests is started");
 
         // ...
-        Thread.Sleep(3000);
+        Thread.Sleep(5000);
         // ...
 
         _logger.LogInformation($"{DateTime.Now} RunTests is finished");

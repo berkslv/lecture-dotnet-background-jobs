@@ -1,4 +1,6 @@
 
+using Jobber.HostedService.Web.Model;
+
 namespace Jobber.HostedService.Web.Jobs;
 
 
@@ -10,12 +12,12 @@ public class TestService : BackgroundService, ITestService
         _logger = logger;
     }
 
-    public bool RunTests()
+    public bool RunTests(TestType testType)
     {
         _logger.LogInformation($"{DateTime.Now} RunTests is started");
 
         // ...
-        Thread.Sleep(3000);
+        Thread.Sleep(5000);
         // ...
 
         _logger.LogInformation($"{DateTime.Now} RunTests is finished");
@@ -28,7 +30,7 @@ public class TestService : BackgroundService, ITestService
         var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
         while (await timer.WaitForNextTickAsync(stoppingToken))
         {
-            RunTests();
+            RunTests(TestType.Recurring);
         }
     }
 }

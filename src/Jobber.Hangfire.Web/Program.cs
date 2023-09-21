@@ -1,6 +1,7 @@
 using Hangfire;
 using Hangfire.PostgreSql;
 using Jobber.Hangfire.Web.Jobs;
+using Jobber.Hangfire.Web.Model;
 using TimeZoneConverter;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,9 +21,12 @@ builder.Services.AddHangfire(config => {
         .UseRecommendedSerializerSettings()
         .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("HangfireConnection"));
 
-    var cronEvery30Seconds = "*/30 * * * * *";
-    var timeZone = TZConvert.GetTimeZoneInfo("Etc/GMT+3");
-    RecurringJob.AddOrUpdate<ITestService>(x => x.RunTests(CancellationToken.None), cronEvery30Seconds, timeZone);
+    var cronEveryMinute = "*/1 * * * *";
+    var recurringJobOptions = new RecurringJobOptions
+    {
+        TimeZone = TZConvert.GetTimeZoneInfo("Etc/GMT+3")
+    };
+    RecurringJob.AddOrUpdate<ITestService>("id-run-and-wait", x => x.RunTests(Guid.NewGuid(), TestType.Recurring, CancellationToken.None), cronEveryMinute, recurringJobOptions);
 });
 
 builder.Services.AddHangfireServer();

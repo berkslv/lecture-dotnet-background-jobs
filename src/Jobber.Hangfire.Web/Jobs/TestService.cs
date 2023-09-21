@@ -1,5 +1,6 @@
 
 using System.Globalization;
+using Jobber.Hangfire.Web.Model;
 
 namespace Jobber.Hangfire.Web.Jobs;
 
@@ -12,33 +13,33 @@ public class TestService : ITestService
         _logger = logger;
     }
 
-    public bool RunTests(CancellationToken cancellationToken)
+    public bool RunTests(Guid id, TestType testType, CancellationToken cancellationToken)
     {
-        var id = Guid.NewGuid();
+        var type = Enum.GetName(typeof(TestType), testType);
 
         try
         {
-            _logger.LogInformation($"{DateTime.Now} RunTests is started. Id: {id}");
+            _logger.LogInformation($"{DateTime.Now} {type} RunTests is started. Id: {id}");
 
             cancellationToken.ThrowIfCancellationRequested();
             // ...
-            Thread.Sleep(20000);
+            Thread.Sleep(5000);
             ThrowRandomly();
             // ...
 
-            _logger.LogInformation($"{DateTime.Now} RunTests is finished. Id: {id}");
+            _logger.LogInformation($"{DateTime.Now} {type} RunTests is finished. Id: {id}");
             return true;  
         }
         catch (OperationCanceledException exception)
         {
-            _logger.LogError($"{DateTime.Now} RunTests is failed. Exception: {exception.Message} Id: {id}");
+            _logger.LogError($"{DateTime.Now} {type} RunTests is failed. Exception: {exception.Message} Id: {id}");
+            throw;
         }
         catch(Exception exception)
         {
-            _logger.LogError($"{DateTime.Now} RunTests is failed. Exception: {exception.Message} Id: {id}");
+            _logger.LogError($"{DateTime.Now} {type} RunTests is failed. Exception: {exception.Message} Id: {id}");
+            throw;
         }
-        
-        return false;
     }
 
     private void ThrowRandomly() 
@@ -48,7 +49,7 @@ public class TestService : ITestService
 
         if (number == 2)
         {
-            throw new Exception("Unexpected and unhandled exception is throwed!");
+            throw new Exception("Error is throwed!");
         }
     }
 }

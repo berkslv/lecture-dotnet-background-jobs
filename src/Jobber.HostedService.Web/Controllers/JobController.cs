@@ -1,4 +1,5 @@
 using Jobber.HostedService.Web.Jobs;
+using Jobber.HostedService.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jobber.HostedService.Web.Controllers;
@@ -18,7 +19,7 @@ public class JobController : ControllerBase
     public IActionResult Get()
     {
         Task.Run(() => {
-            _testService.RunTests();
+            _testService.RunTests(TestType.OnDemand);
         });
 
         return Ok("Ok");
